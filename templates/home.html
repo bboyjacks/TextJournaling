@@ -24,6 +24,20 @@
 	<button id="addData">Add Data</button>
 	<button id="removeData">Remove Data</button>
 	<script>
+
+		let times = ['8 AM', '10 AM', '12 PM', '1 PM', '3 PM', '5 PM', '7 PM', '9PM']
+		let values = [4, 1, 1, 3, 2, 1, 1, 1]
+		
+		let dataset_generator = function(times, values)
+		{
+			var dataset = [];
+			for (i = 0; i < times.length(); i++)
+			{
+				dataset.push({x: times[i], y: values[i]});
+			}
+			return dataset;
+		}
+
 		var color = Chart.helpers.color;
 		var config = {
 			type: 'line',
@@ -33,7 +47,7 @@
 					backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
 					borderColor: window.chartColors.red,
 					fill: false,
-					data: []
+					data: dataset_generator(times, values)
 				}]
 			},
 			options: {
