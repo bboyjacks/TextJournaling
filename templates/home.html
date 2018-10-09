@@ -1,0 +1,79 @@
+<html>
+
+<head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+	<script src="timeline.js"></script>
+</head>
+
+<body>
+	<h1>Hello world</h1>
+	<canvas id="myChart" width="400" height="400"></canvas>
+	<script>
+		var ctx = document.getElementById("myChart").getContext('2d');
+		var myChart = new Chart(ctx, {
+			"type": "timeline",
+			"options": {
+				// Depricated and will be removed in future. Please use elements.* instead.
+				// "colorFunction": function(text, data, dataset, index) {
+				//     return Color('black');
+				// },
+				// "showText": true,
+				// "textPadding": 4
+				"elements": {
+					"colorFunction": function (text, data, dataset, index) {
+						return Color('black');
+					},
+					"showText": true,
+					"textPadding": 4
+				}
+			},
+			"data": {
+				"labels": [
+					"Cool Graph",
+					"heater1"
+				],
+				"datasets": [
+					{
+						"data": [
+							[
+								"2018-01-22T16:00:00.000Z",
+								"2018-01-23T05:40:44.626Z",
+								"Unknown"
+							]
+						]
+					},
+					{
+						"data": [
+							[
+								"2018-01-22T16:00:00.000Z",
+								"2018-01-23T04:57:43.736Z",
+								"On"
+							],
+							[
+								"2018-01-23T04:57:43.736Z",
+								"2018-01-23T04:57:55.437Z",
+								"Off"
+							],
+							[
+								"2018-01-23T04:57:55.437Z",
+								"2018-01-23T05:40:44.626Z",
+								"On"
+							]
+						]
+					}
+				]
+			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true
+						}
+					}]
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>
