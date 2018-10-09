@@ -36,7 +36,32 @@
 			return dataset;
 		}
 
-		load_chart(dataset_generator());
+		var color = Chart.helpers.color;
+		let data_set = [
+		{
+			label: 'Anxiety',
+			backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+			borderColor: window.chartColors.red,
+			fill: false,
+			data: dataset_generator()
+		},
+		{
+			label: 'Happiness',
+			backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
+			borderColor: window.chartColors.green,
+			fill: false,
+			data: dataset_generator()
+		},
+		{
+			label: 'Motivation',
+			backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+			borderColor: window.chartColors.blue,
+			fill: false,
+			data: dataset_generator()
+		}
+		]
+
+		load_chart(data_set);
 	</script>
 </body>
 

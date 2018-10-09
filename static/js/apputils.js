@@ -1,22 +1,15 @@
 let load_chart = function(data_set)
 {
-	var color = Chart.helpers.color;
 	var config = {
 		type: 'line',
 		data: {
-			datasets: [{
-				label: 'Dataset with string point data',
-				backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
-				borderColor: window.chartColors.red,
-				fill: false,
-				data: data_set
-			}]
+			datasets: data_set
 		},
 		options: {
 			responsive: true,
 			title: {
 				display: true,
-				text: 'Sample Mood Chart'
+				text: 'Mood Chart'
 			},
 			scales: {
 				xAxes: [{
