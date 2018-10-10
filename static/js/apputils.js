@@ -29,7 +29,7 @@ let load_chart = function(data_set)
 				yAxes: [{
 					ticks: {
 						beginAtZero: true,
-						max: 5
+						max: 6
 					},
 					display: true,
 					scaleLabel: {
