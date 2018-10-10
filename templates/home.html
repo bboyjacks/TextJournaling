@@ -8,6 +8,7 @@
 	<script type="text/javascript" src="{{ url_for('static', filename='js/utils.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='js/apputils.js') }}"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<style>
 		canvas {
 			-moz-user-select: none;
@@ -18,21 +19,61 @@
 </head>
 
 <body>
-	<h1>Hello world</h1>
 	<div class="container">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="row">
+					<div class="col-lg-12">
+						<h5>10/08/2018</h5>
+						<p>mood here</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<h5>10/08/2018</h5>
+						<p>mood here</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-1"></div>
+			<div class="col-lg-8">
+				<div class="row">
+					<div class="col-lg-12">
+						<h5>10/08/2018</h5>
+						<p>Diary here</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<h5>10/08/2018</h5>
+						<p>Diary here again</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<h5>10/08/2018</h5>
+						<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking
+							at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as
+							opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing
+							packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum'
+							will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by
+							accident, sometimes on purpose (injected humour and the like).</p>
+					</div>
+				</div>
+			</div>
+		</div>
 		<canvas id="canvas"></canvas>
+
 	</div>
 	<script>
-		
-		let dataset_generator = function()
-		{
+
+		let dataset_generator = function () {
 			let dt = new Date('2018-10-08T00:00:00Z');
 			dt.setHours(dt.getHours() - 9);
 			var dataset = [];
-			for (i = 0; i < 12; i += 2)
-			{
+			for (i = 0; i < 12; i += 2) {
 				let ran_rating = Math.floor(Math.random() * 5) + 1;
-				dataset.push({x: new Date(dt), y: ran_rating});
+				dataset.push({ x: new Date(dt), y: ran_rating });
 				dt.setHours(dt.getHours() + 2);
 			}
 			return dataset;
@@ -40,27 +81,27 @@
 
 		var color = Chart.helpers.color;
 		let data_set = [
-		{
-			label: 'Anxiety',
-			backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
-			borderColor: window.chartColors.red,
-			fill: false,
-			data: dataset_generator()
-		},
-		{
-			label: 'Happiness',
-			backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
-			borderColor: window.chartColors.green,
-			fill: false,
-			data: dataset_generator()
-		},
-		{
-			label: 'Motivation',
-			backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-			borderColor: window.chartColors.blue,
-			fill: false,
-			data: dataset_generator()
-		}
+			{
+				label: 'Anxiety',
+				backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+				borderColor: window.chartColors.red,
+				fill: false,
+				data: dataset_generator()
+			},
+			{
+				label: 'Happiness',
+				backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
+				borderColor: window.chartColors.green,
+				fill: false,
+				data: dataset_generator()
+			},
+			{
+				label: 'Motivation',
+				backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+				borderColor: window.chartColors.blue,
+				fill: false,
+				data: dataset_generator()
+			}
 		]
 
 		load_chart(data_set);
