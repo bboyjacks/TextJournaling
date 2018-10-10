@@ -9,7 +9,7 @@ let load_chart = function(data_set)
 			responsive: true,
 			title: {
 				display: true,
-				text: 'Mood Chart'
+				text: 'Mood Chart Yesterday'
 			},
 			scales: {
 				xAxes: [{
