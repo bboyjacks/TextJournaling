@@ -7,8 +7,8 @@ class MoodDB:
 		self.db_uri = 'sqlite:///mood_sms.db'
 		self.engine = create_engine(self.db_uri)
 	
-	def get_moods(self, user_id):
-		moods = self.engine.execute("SELECT type, star, time FROM users INNER JOIN mood ON users.id = mood.user_id AND users.id = " + str(user_id))
+	def get_moods(self, phone_number):
+		moods = self.engine.execute("SELECT type, star, time FROM users INNER JOIN mood ON users.id = mood.user_id AND users.phone_number = " + str(phone_number))
 		mood_list = {'moods': []}
 		for mood in moods:
 			mood_obj = {}
@@ -27,8 +27,8 @@ class MoodDB:
 		else:
 			return dt.strftime('%I %p on %m/%d/%Y')
 	
-	def get_diaries(self, user_id):
-		diaries = self.engine.execute("SELECT post, time FROM users INNER JOIN diary ON users.id = diary.user_id AND users.id = " + str(user_id))
+	def get_diaries(self, phone_number):
+		diaries = self.engine.execute("SELECT post, time FROM users INNER JOIN diary ON users.id = diary.user_id AND users.phone_number = " + str(phone_number))
 		diary_list = {'diaries': []}
 		
 		for diary in diaries:
@@ -37,3 +37,12 @@ class MoodDB:
 			diary_obj['time'] = self.__time_parser(diary[1])
 			diary_list['diaries'].append(diary_obj)
 		return diary_list
+
+	def set_diary(self, phone_number, message):
+		user_id_sql_result = self.engine.execute("SELECT id FROM users WHERE phone_number = " + str(phone_number))
+		user_id_fetch_result = user_id_sql_result.fetchall()
+		user_id = user_id_fetch_result[0][0]
+		sql_command = "INSERT INTO diary (user_id, post, time) "
+		sql_command += "values (" + str(user_id) + ", '" + message + "'," + str(int(datetime.datetime.now().timestamp())) + ")"
+
+		self.engine.execute(sql_command)
