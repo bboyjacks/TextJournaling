@@ -8,7 +8,7 @@ class MoodDB:
 		self.engine = create_engine(self.db_uri)
 	
 	def get_moods(self):
-		moods = self.engine.execute("SELECT type, star, time FROM users INNER JOIN mood ON users.id = mood.user_id")
+		moods = self.engine.execute("SELECT type, star, time FROM users INNER JOIN mood ON users.id = mood.user_id AND users.id = 1")
 		mood_list = {'moods': []}
 		for mood in moods:
 			mood_obj = {}
