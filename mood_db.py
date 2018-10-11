@@ -14,6 +14,15 @@ class MoodDB:
 			mood_obj = {}
 			mood_obj['type'] = mood[0]
 			mood_obj['star'] = mood[1]
-			mood_obj['time'] = datetime.datetime.fromtimestamp(mood[2]/1000)
+			mood_obj['time'] = self.__time_parser__(mood[2])
 			mood_list['moods'].append(mood_obj)
 		return mood_list
+
+	def __time_parser__(self, mood_time):
+		dt = datetime.datetime.utcfromtimestamp(mood_time)
+		dt_today = datetime.datetime.now()
+
+		if (dt.day == dt_today.day):
+			return dt_today.strftime('%I %p Today')
+		else:
+			return dt.strftime('%I %p on %m/%d/%Y')
