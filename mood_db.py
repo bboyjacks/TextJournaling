@@ -14,6 +14,6 @@ class MoodDB:
 			mood_obj = {}
 			mood_obj['type'] = mood[0]
 			mood_obj['star'] = mood[1]
-			mood_obj['time'] = datetime.datetime.utcfromtimestamp(mood[2]/1000)
+			mood_obj['time'] = datetime.datetime.fromtimestamp(mood[2]/1000)
 			mood_list['moods'].append(mood_obj)
 		return mood_list
