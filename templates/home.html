@@ -28,40 +28,29 @@
 		</div>
 
 		<div class="row">
+
 			<div class="col-lg-3">
+				{% for mood in moods['moods']%}
 				<div class="row">
 					<div class="col-lg-12">
-						<p> <span style="color: rgb(255, 99, 132);" >Anxiety</span> at 8 AM Today</p>
+						{% if mood['type'] == 'Anxiety' %}
+						<p> <span style="color: rgb(255, 99, 132);">{{ mood['type']}}</span> at {{mood['time']}}</p>
+						{% elif mood['type'] == 'Happiness' %}
+						<p> <span style="color: rgb(75, 192, 192);">{{ mood['type']}}</span> at {{mood['time']}}</p>
+						{% elif mood['type'] == 'Motivation' %}
+						<p> <span style="color: rgb(54, 162, 235);">{{ mood['type']}}</span> at {{mood['time']}}</p>
+						{% endif%}
+						{% for star in range(mood['star']) %}
 						<i class="fas fa-star"></i>
-						<i class="fas fa-star"></i>
+						{% endfor%}
+
+						{% for empty_star in range(5 - mood['star'])%}
 						<i class="far fa-star"></i>
-						<i class="far fa-star"></i>
-						<i class="far fa-star"></i>
+						{% endfor%}
 						<hr />
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						<p> <span style="color: rgb(75, 192, 192);" >Happiness</span> at 9 AM Today</p>
-						<i class="fas fa-star"></i>
-						<i class="fas fa-star"></i>
-						<i class="fas fa-star"></i>
-						<i class="fas fa-star"></i>
-						<i class="far fa-star"></i>
-						<hr />
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						<p> <span style="color: rgb(54, 162, 235);" >Motivation</span> at 6 PM of 10/08/2018</p>
-						<i class="fas fa-star"></i>
-						<i class="fas fa-star"></i>
-						<i class="far fa-star"></i>
-						<i class="far fa-star"></i>
-						<i class="far fa-star"></i>
-						<hr />
-					</div>
-				</div>
+				{% endfor%}
 			</div>
 			<div class="col-lg-1"></div>
 			<div class="col-lg-8">

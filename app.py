@@ -11,11 +11,9 @@ app = Flask(__name__)
 mood_db = MoodDB()
 
 @app.route('/')
-def hello_world():
-    moods = mood_db.get_moods()
-    for mood in moods:
-        print(mood)
-    return render_template('home.html')
+def home():
+    moods = mood_db.get_moods()        
+    return render_template('home.html', moods=moods)
 
 if __name__ == "__main__":
     app.run(debug=True)
