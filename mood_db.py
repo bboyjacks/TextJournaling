@@ -23,9 +23,9 @@ class MoodDB:
 		dt_today = datetime.datetime.now()
 
 		if (dt.day == dt_today.day):
-			return dt_today.strftime('%I %p Today')
+			return dt_today.strftime('%I:%M %p Today')
 		else:
-			return dt.strftime('%I %p on %m/%d/%Y')
+			return dt.strftime('%I:%M %p on %m/%d/%Y')
 	
 	def get_diaries(self, phone_number):
 		diaries = self.engine.execute("SELECT post, time FROM users INNER JOIN diary ON users.id = diary.user_id AND users.phone_number = " + str(phone_number))
