@@ -46,3 +46,12 @@ class MoodDB:
 		sql_command += "values (" + str(user_id) + ", '" + message + "'," + str(int(datetime.datetime.now().timestamp())) + ")"
 
 		self.engine.execute(sql_command)
+	
+	def set_mood(self, phone_number, mood_type, star):
+		user_id_sql_result = self.engine.execute("SELECT id FROM users WHERE phone_number = " + str(phone_number))
+		user_id_fetch_result = user_id_sql_result.fetchall()
+		user_id = user_id_fetch_result[0][0]
+		sql_command = "INSERT INTO mood (user_id, type, star, time) "
+		sql_command += "values (" + str(user_id) + ", '" + mood_type + "'," + str(star) + "," + str(int(datetime.datetime.now().timestamp())) + ")"
+
+		self.engine.execute(sql_command)

@@ -25,7 +25,18 @@ def text_recv():
     number = request.form['From']
     message_body = request.form['Body']
     number = number[2:]
-    mood_db.set_diary(int(number), message_body)
+
+    if "Anxiety:" in message_body:
+        parsed_text = message_body.split(' ')
+        mood_db.set_mood(number, "Anxiety", int(parsed_text[1]))
+    elif "Happiness:" in message_body:
+        parsed_text = message_body.split(' ')
+        mood_db.set_mood(number, 'Happiness', int(parsed_text[1]))
+    elif "Motivation:" in message_body:
+        parsed_text = message_body.split(' ')
+        mood_db.set_mood(number, 'Motivation', int(parsed_text[1]))
+    else:
+        mood_db.set_diary(int(number), message_body)
     resp = MessagingResponse()
     resp.message("Your thoughts are saved")
 
