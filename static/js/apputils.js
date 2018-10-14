@@ -1,3 +1,7 @@
+let max_date = new Date();
+var min_date = new Date(max_date);
+min_date.setDate(min_date.getDate() - 7);
+
 let load_chart = function(data_set)
 {
 	var config = {
@@ -14,6 +18,10 @@ let load_chart = function(data_set)
 			scales: {
 				xAxes: [{
 					type: 'time',
+					time: {
+						min: min_date,
+						max: max_date
+					},
 					display: true,
 					scaleLabel: {
 						display: true,
