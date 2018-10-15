@@ -18,15 +18,20 @@
 			-ms-user-select: none;
 		}
 
-		.mood {
+		.mood, .diary {
+			background-color: aliceblue;
+			border-color: rgb(55, 59, 59);
+			border-radius: 4px;
+			border: 1px;
 			height: 400px;
 			overflow: scroll;
 		}
 
-		.diary {
-			height: 400px;
-			overflow: scroll;
+		.content {
+			padding-left: 15px;
+			padding-right: 15px;
 		}
+
 	</style>
 </head>
 
@@ -37,9 +42,9 @@
 			<p>Text your mood.</p>
 		</div>
 
-		<div class="row">
+		<div class="row content">
 
-			<div class="col-lg-3 mood">
+			<div class="col-lg-4 mood">
 				{% for mood in moods['moods'] | reverse %}
 				<div class="row">
 					<div class="col-lg-12">
