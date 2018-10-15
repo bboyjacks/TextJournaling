@@ -17,6 +17,16 @@
 			-webkit-user-select: none;
 			-ms-user-select: none;
 		}
+
+		.mood {
+			height: 400px;
+			overflow: scroll;
+		}
+
+		.diary {
+			height: 400px;
+			overflow: scroll;
+		}
 	</style>
 </head>
 
@@ -29,8 +39,8 @@
 
 		<div class="row">
 
-			<div class="col-lg-3">
-				{% for mood in moods['moods']%}
+			<div class="col-lg-3 mood">
+				{% for mood in moods['moods'] | reverse %}
 				<div class="row">
 					<div class="col-lg-12">
 						{% if mood['type'] == 'Anxiety' %}
@@ -43,7 +53,6 @@
 						{% for star in range(mood['star']) %}
 						<i class="fas fa-star"></i>
 						{% endfor%}
-
 						{% for empty_star in range(5 - mood['star'])%}
 						<i class="far fa-star"></i>
 						{% endfor%}
@@ -53,8 +62,8 @@
 				{% endfor%}
 			</div>
 			<div class="col-lg-1"></div>
-			<div class="col-lg-8">
-				{% for diary in diaries['diaries'] %}
+			<div class="col-lg-8 diary">
+				{% for diary in diaries['diaries'] | reverse %}
 				<div class="row">
 					<div class="col-lg-12">
 						<h5>{{ diary['time'] }}</h5>
@@ -69,17 +78,61 @@
 	</div>
 	<script>
 
-		let dataset_generator = function () {
-			let dt = new Date('2018-10-08T00:00:00Z');
-			dt.setHours(dt.getHours() - 9);
-			var dataset = [];
-			for (i = 0; i < 12; i += 2) {
-				let ran_rating = Math.floor(Math.random() * 5) + 1;
-				dataset.push({ x: new Date(dt), y: ran_rating });
-				dt.setHours(dt.getHours() + 2);
+		var mood_js = {{ moods|tojson }};
+		var anxiety_dataset = [];
+		var happiness_dataset = [];
+		var motivation_dataset = [];
+		for (i = 0; i < mood_js['moods'].length; i++){
+			date_str = mood_js['moods'][i]['time'];
+			date_info_array = date_str.split(' ')
+			var time_info_array = date_info_array[0].split(':')
+
+			var dt = null;
+
+			if (date_str.includes('Today'))
+			{
+				// date
+				dt = new Date();
+
+				// hour
+				dt.setHours(parseInt(time_info_array[0]));
+
+				// minutes
+				dt.setMinutes(parseInt(time_info_array[1]));
 			}
-			return dataset;
+			else
+			{
+				dt = new Date(date_info_array[3]);
+
+				// hour
+				dt.setHours(dt.getHours() + parseInt(time_info_array[0]));
+
+				// minutes
+				dt.setHours(dt.getMinutes() + parseInt(time_info_array[1]));
+			}
+
+			if (time_info_array[2] == 'PM')
+			{
+				dt.setHours(dt.getHours() + 12);
+			}
+
+			if (mood_js['moods'][i]['type'] == 'Anxiety')
+			{
+				anxiety_dataset.push({x: dt, y: mood_js['moods'][i]['star']})
+			}
+			else if (mood_js['moods'][i]['type'] == 'Happiness')
+			{
+				happiness_dataset.push({x: dt, y: mood_js['moods'][i]['star']})
+			}
+			else if (mood_js['moods'][i]['type'] == 'Motivation')
+			{
+				motivation_dataset.push({x: dt, y: mood_js['moods'][i]['star']})
+			}
 		}
+
+		console.log(anxiety_dataset);
+		console.log(happiness_dataset);
+		console.log(motivation_dataset);
 
 		var color = Chart.helpers.color;
 		let data_set = [
@@ -88,21 +141,21 @@
 				backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
 				borderColor: window.chartColors.red,
 				fill: false,
-				data: dataset_generator()
+				data: anxiety_dataset
 			},
 			{
 				label: 'Happiness',
 				backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
 				borderColor: window.chartColors.green,
 				fill: false,
-				data: dataset_generator()
+				data: happiness_dataset
 			},
 			{
 				label: 'Motivation',
 				backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
 				borderColor: window.chartColors.blue,
 				fill: false,
-				data: dataset_generator()
+				data: motivation_dataset
 			}
 		]
 
